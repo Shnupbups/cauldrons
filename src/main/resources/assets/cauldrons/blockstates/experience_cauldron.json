@@ -1,0 +1,94 @@
+{
+  "variants": {
+    "level=1": {
+      "model": "cauldrons:block/experience_cauldron_level0point5"
+    },
+    "level=2": {
+      "model": "cauldrons:block/experience_cauldron_level0point5"
+    },
+    "level=3": {
+      "model": "cauldrons:block/experience_cauldron_level0point5"
+    },
+    "level=4": {
+      "model": "cauldrons:block/experience_cauldron_level0point5"
+    },
+    "level=5": {
+      "model": "cauldrons:block/experience_cauldron_level0point5"
+    },
+    "level=6": {
+      "model": "cauldrons:block/experience_cauldron_level1"
+    },
+    "level=7": {
+      "model": "cauldrons:block/experience_cauldron_level1"
+    },
+    "level=8": {
+      "model": "cauldrons:block/experience_cauldron_level1"
+    },
+    "level=9": {
+      "model": "cauldrons:block/experience_cauldron_level1"
+    },
+    "level=10": {
+      "model": "cauldrons:block/experience_cauldron_level1"
+    },
+    "level=11": {
+      "model": "cauldrons:block/experience_cauldron_level1point5"
+    },
+    "level=12": {
+      "model": "cauldrons:block/experience_cauldron_level1point5"
+    },
+    "level=13": {
+      "model": "cauldrons:block/experience_cauldron_level1point5"
+    },
+    "level=14": {
+      "model": "cauldrons:block/experience_cauldron_level1point5"
+    },
+    "level=15": {
+      "model": "cauldrons:block/experience_cauldron_level1point5"
+    },
+    "level=16": {
+      "model": "cauldrons:block/experience_cauldron_level2"
+    },
+    "level=17": {
+      "model": "cauldrons:block/experience_cauldron_level2"
+    },
+    "level=18": {
+      "model": "cauldrons:block/experience_cauldron_level2"
+    },
+    "level=19": {
+      "model": "cauldrons:block/experience_cauldron_level2"
+    },
+    "level=20": {
+      "model": "cauldrons:block/experience_cauldron_level2"
+    },
+    "level=21": {
+      "model": "cauldrons:block/experience_cauldron_level2point5"
+    },
+    "level=22": {
+      "model": "cauldrons:block/experience_cauldron_level2point5"
+    },
+    "level=23": {
+      "model": "cauldrons:block/experience_cauldron_level2point5"
+    },
+    "level=24": {
+      "model": "cauldrons:block/experience_cauldron_level2point5"
+    },
+    "level=25": {
+      "model": "cauldrons:block/experience_cauldron_level2point5"
+    },
+    "level=26": {
+      "model": "cauldrons:block/experience_cauldron_full"
+    },
+    "level=27": {
+      "model": "cauldrons:block/experience_cauldron_full"
+    },
+    "level=28": {
+      "model": "cauldrons:block/experience_cauldron_full"
+    },
+    "level=29": {
+      "model": "cauldrons:block/experience_cauldron_full"
+    },
+    "level=30": {
+      "model": "cauldrons:block/experience_cauldron_full"
+    }
+  }
+}

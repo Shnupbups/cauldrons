@@ -1,0 +1,12 @@
+{
+  "replace": false,
+  "values": [
+    "cauldrons:milk_cauldron",
+    "cauldrons:honey_cauldron",
+    "cauldrons:dragon_breath_cauldron",
+    "cauldrons:experience_cauldron",
+    "cauldrons:mushroom_stew_cauldron",
+    "cauldrons:rabbit_stew_cauldron",
+    "cauldrons:beetroot_soup_cauldron"
+  ]
+}

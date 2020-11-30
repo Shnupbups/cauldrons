@@ -1,0 +1,11 @@
+{
+  "parent": "cauldrons:block/template_cauldron_level0point5",
+  "textures": {
+    "content": "cauldrons:block/beetroot_soup",
+    "inside": "minecraft:block/cauldron_inner",
+    "particle": "minecraft:block/cauldron_side",
+    "top": "minecraft:block/cauldron_top",
+    "bottom": "minecraft:block/cauldron_bottom",
+    "side": "minecraft:block/cauldron_side"
+  }
+}

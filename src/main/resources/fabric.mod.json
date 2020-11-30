@@ -1,0 +1,26 @@
+{
+  "schemaVersion": 1,
+  "id": "cauldrons",
+  "version": "1.0.0",
+
+  "name": "Cauldrons",
+  "description": "Adds more stuff you can do with Cauldrons",
+  "authors": [
+    "Shnupbups"
+  ],
+
+  "license": "LGPLv3",
+  "icon": "assets/cauldrons/icon.png",
+
+  "environment": "*",
+  "entrypoints": {
+    "main": [
+      "com.shnupbups.cauldrons.Cauldrons"
+    ]
+  },
+
+  "depends": {
+    "fabricloader": ">=0.6.1",
+    "fabric": "*"
+  }
+}
