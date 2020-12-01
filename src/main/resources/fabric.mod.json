@@ -16,6 +16,9 @@
   "entrypoints": {
     "main": [
       "com.shnupbups.cauldrons.Cauldrons"
+    ],
+    "client": [
+      "com.shnupbups.cauldrons.CauldronsClient"
     ]
   },
 

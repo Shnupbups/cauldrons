@@ -8,6 +8,7 @@
     "cauldrons:mushroom_stew_cauldron",
     "cauldrons:rabbit_stew_cauldron",
     "cauldrons:beetroot_soup_cauldron",
-    "cauldrons:suspicious_stew_cauldron"
+    "cauldrons:suspicious_stew_cauldron",
+    "cauldrons:dyed_water_cauldron"
   ]
 }
