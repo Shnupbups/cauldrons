@@ -1,7 +1,7 @@
 {
   "schemaVersion": 1,
   "id": "cauldrons",
-  "version": "1.0.0",
+  "version": "${version}",
 
   "name": "Cauldrons",
   "description": "Adds more stuff you can do with Cauldrons",
@@ -20,6 +20,7 @@
   },
 
   "depends": {
+    "minecraft": "~1.17-alpha+",
     "fabricloader": ">=0.6.1",
     "fabric": "*"
   }

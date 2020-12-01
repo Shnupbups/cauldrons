@@ -1,5 +1,6 @@
-package com.shnupbups.cauldrons;
+package com.shnupbups.cauldrons.registry;
 
+import net.minecraft.block.BlockState;
 import net.minecraft.block.cauldron.CauldronBehavior;
 import net.minecraft.item.Item;
 import net.minecraft.item.ItemStack;
@@ -11,6 +12,12 @@ import net.minecraft.sound.SoundEvents;
 import net.minecraft.stat.Stats;
 import net.minecraft.util.ActionResult;
 
+import com.shnupbups.cauldrons.block.BeetrootSoupCauldronBlock;
+import com.shnupbups.cauldrons.block.ExperienceCauldronBlock;
+import com.shnupbups.cauldrons.block.ModThreeLeveledCauldronBlock;
+import com.shnupbups.cauldrons.block.MushroomStewCauldronBlock;
+import com.shnupbups.cauldrons.block.entity.SuspiciousStewCauldronBlockEntity;
+
 import java.util.Map;
 
 public interface ModCauldronBehavior extends CauldronBehavior {
@@ -21,12 +28,14 @@ public interface ModCauldronBehavior extends CauldronBehavior {
 	Map<Item, CauldronBehavior> MUSHROOM_STEW_CAULDRON_BEHAVIOR = CauldronBehavior.createMap();
 	Map<Item, CauldronBehavior> RABBIT_STEW_CAULDRON_BEHAVIOR = CauldronBehavior.createMap();
 	Map<Item, CauldronBehavior> BEETROOT_SOUP_CAULDRON_BEHAVIOR = CauldronBehavior.createMap();
+	Map<Item, CauldronBehavior> SUSPICIOUS_STEW_CAULDRON_BEHAVIOR = CauldronBehavior.createMap();
+
 	CauldronBehavior FILL_WITH_MILK = (state, world, pos, player, hand, stack) -> {
 		return CauldronBehavior.fillCauldron(world, pos, player, hand, stack, ModBlocks.MILK_CAULDRON.getDefaultState(), SoundEvents.ITEM_BUCKET_EMPTY);
 	};
 	CauldronBehavior ADD_MUSHROOM_TO_EMPTY = (state, world, pos, player, hand, stack) -> {
 		if (!world.isClient) {
-			player.setStackInHand(hand, ItemUsage.method_30012(stack, player, new ItemStack(Items.BOWL)));
+			stack.decrement(1);
 			player.incrementStat(Stats.USE_CAULDRON);
 			world.setBlockState(pos, ModBlocks.MUSHROOM_STEW_CAULDRON.getDefaultState());
 			world.playSound(null, pos, SoundEvents.ENTITY_ITEM_PICKUP, SoundCategory.BLOCKS, 1.0F, 1.0F);
@@ -37,7 +46,7 @@ public interface ModCauldronBehavior extends CauldronBehavior {
 	CauldronBehavior ADD_MUSHROOM_TO_STEW = (state, world, pos, player, hand, stack) -> {
 		if (state.get(MushroomStewCauldronBlock.LEVEL) != 6) {
 			if (!world.isClient) {
-				player.setStackInHand(hand, ItemUsage.method_30012(stack, player, new ItemStack(Items.BOWL)));
+				stack.decrement(1);
 				player.incrementStat(Stats.USE_CAULDRON);
 				MushroomStewCauldronBlock.incrementFluidLevel(state, world, pos, 1);
 				world.playSound(null, pos, SoundEvents.ENTITY_ITEM_PICKUP, SoundCategory.BLOCKS, 1.0F, 1.0F);
@@ -49,7 +58,7 @@ public interface ModCauldronBehavior extends CauldronBehavior {
 		}
 	};
 
-	static void registerBehavior() {
+	static void init() {
 		EMPTY_CAULDRON_BEHAVIOR.put(Items.MILK_BUCKET, FILL_WITH_MILK);
 		EMPTY_CAULDRON_BEHAVIOR.put(Items.HONEY_BOTTLE, (state, world, pos, player, hand, stack) -> {
 			if (!world.isClient) {
@@ -115,10 +124,23 @@ public interface ModCauldronBehavior extends CauldronBehavior {
 		});
 		EMPTY_CAULDRON_BEHAVIOR.put(Items.BEETROOT, (state, world, pos, player, hand, stack) -> {
 			if (!world.isClient) {
-				player.setStackInHand(hand, ItemUsage.method_30012(stack, player, new ItemStack(Items.BOWL)));
+				stack.decrement(1);
 				player.incrementStat(Stats.USE_CAULDRON);
 				world.setBlockState(pos, ModBlocks.BEETROOT_SOUP_CAULDRON.getDefaultState());
 				world.playSound(null, pos, SoundEvents.ENTITY_ITEM_PICKUP, SoundCategory.BLOCKS, 1.0F, 1.0F);
+			}
+
+			return ActionResult.success(world.isClient);
+		});
+		EMPTY_CAULDRON_BEHAVIOR.put(Items.SUSPICIOUS_STEW, (state, world, pos, player, hand, stack) -> {
+			if (!world.isClient) {
+				player.setStackInHand(hand, ItemUsage.method_30012(stack, player, new ItemStack(Items.BOWL)));
+				player.incrementStat(Stats.USE_CAULDRON);
+				world.setBlockState(pos, ModBlocks.SUSPICIOUS_STEW_CAULDRON.getDefaultState().with(MushroomStewCauldronBlock.LEVEL, 2));
+				if(world.getBlockEntity(pos) != null) {
+					((SuspiciousStewCauldronBlockEntity)world.getBlockEntity(pos)).addEffectsFromStew(stack);
+				}
+				world.playSound(null, pos, SoundEvents.ITEM_BOTTLE_EMPTY, SoundCategory.BLOCKS, 1.0F, 1.0F);
 			}
 
 			return ActionResult.success(world.isClient);
@@ -274,6 +296,25 @@ public interface ModCauldronBehavior extends CauldronBehavior {
 		MUSHROOM_STEW_CAULDRON_BEHAVIOR.put(Items.LAVA_BUCKET, FILL_WITH_LAVA);
 		MUSHROOM_STEW_CAULDRON_BEHAVIOR.put(Items.POWDER_SNOW_BUCKET, FILL_WITH_POWDER_SNOW);
 		MUSHROOM_STEW_CAULDRON_BEHAVIOR.put(Items.MILK_BUCKET, FILL_WITH_MILK);
+		MUSHROOM_STEW_CAULDRON_BEHAVIOR.put(Items.SUSPICIOUS_STEW, (state, world, pos, player, hand, stack) -> {
+			if (state.get(MushroomStewCauldronBlock.LEVEL) != 6) {
+				if (!world.isClient) {
+					player.setStackInHand(hand, ItemUsage.method_30012(stack, player, new ItemStack(Items.BOWL)));
+					player.incrementStat(Stats.USE_CAULDRON);
+					BlockState newState = ModBlocks.SUSPICIOUS_STEW_CAULDRON.getDefaultState().with(MushroomStewCauldronBlock.LEVEL, state.get(MushroomStewCauldronBlock.LEVEL));
+					world.setBlockState(pos, newState);
+					MushroomStewCauldronBlock.incrementFluidLevel(newState, world, pos, 2);
+					if(world.getBlockEntity(pos) != null) {
+						((SuspiciousStewCauldronBlockEntity)world.getBlockEntity(pos)).addEffectsFromStew(stack);
+					}
+					world.playSound(null, pos, SoundEvents.ITEM_BOTTLE_EMPTY, SoundCategory.BLOCKS, 1.0F, 1.0F);
+				}
+
+				return ActionResult.success(world.isClient);
+			} else {
+				return ActionResult.PASS;
+			}
+		});
 
 		RABBIT_STEW_CAULDRON_BEHAVIOR.put(Items.BOWL, (state, world, pos, player, hand, stack) -> {
 			if (!world.isClient) {
@@ -335,7 +376,7 @@ public interface ModCauldronBehavior extends CauldronBehavior {
 		BEETROOT_SOUP_CAULDRON_BEHAVIOR.put(Items.BEETROOT, (state, world, pos, player, hand, stack) -> {
 			if (state.get(BeetrootSoupCauldronBlock.LEVEL) != 18) {
 				if (!world.isClient) {
-					player.setStackInHand(hand, ItemUsage.method_30012(stack, player, new ItemStack(Items.BOWL)));
+					stack.decrement(1);
 					player.incrementStat(Stats.USE_CAULDRON);
 					BeetrootSoupCauldronBlock.incrementFluidLevel(state, world, pos, 1);
 					world.playSound(null, pos, SoundEvents.ENTITY_ITEM_PICKUP, SoundCategory.BLOCKS, 1.0F, 1.0F);
@@ -350,5 +391,49 @@ public interface ModCauldronBehavior extends CauldronBehavior {
 		BEETROOT_SOUP_CAULDRON_BEHAVIOR.put(Items.LAVA_BUCKET, FILL_WITH_LAVA);
 		BEETROOT_SOUP_CAULDRON_BEHAVIOR.put(Items.POWDER_SNOW_BUCKET, FILL_WITH_POWDER_SNOW);
 		BEETROOT_SOUP_CAULDRON_BEHAVIOR.put(Items.MILK_BUCKET, FILL_WITH_MILK);
+
+		SUSPICIOUS_STEW_CAULDRON_BEHAVIOR.put(Items.BOWL, (state, world, pos, player, hand, stack) -> {
+			if (state.get(MushroomStewCauldronBlock.LEVEL) >= 2) {
+				if (!world.isClient) {
+					ItemStack stew = new ItemStack(Items.SUSPICIOUS_STEW);
+					if(world.getBlockEntity(pos) != null) {
+						((SuspiciousStewCauldronBlockEntity)world.getBlockEntity(pos)).addEffectsToStew(stew);
+					}
+					player.setStackInHand(hand, ItemUsage.method_30012(stack, player, stew));
+					player.incrementStat(Stats.USE_CAULDRON);
+					BlockState newState = ModBlocks.MUSHROOM_STEW_CAULDRON.getDefaultState().with(MushroomStewCauldronBlock.LEVEL, state.get(MushroomStewCauldronBlock.LEVEL));
+					world.setBlockState(pos, newState);
+					MushroomStewCauldronBlock.decrementFluidLevel(newState, world, pos, 2);
+					world.playSound(null, pos, SoundEvents.ITEM_BOTTLE_FILL, SoundCategory.BLOCKS, 1.0F, 1.0F);
+				}
+
+				return ActionResult.success(world.isClient);
+			} else {
+				return ActionResult.PASS;
+			}
+		});
+		SUSPICIOUS_STEW_CAULDRON_BEHAVIOR.put(Items.SUSPICIOUS_STEW, (state, world, pos, player, hand, stack) -> {
+			if (state.get(MushroomStewCauldronBlock.LEVEL) != 6) {
+				if (!world.isClient) {
+					player.setStackInHand(hand, ItemUsage.method_30012(stack, player, new ItemStack(Items.BOWL)));
+					if(world.getBlockEntity(pos) != null) {
+						((SuspiciousStewCauldronBlockEntity)world.getBlockEntity(pos)).addEffectsFromStew(stack);
+					}
+					player.incrementStat(Stats.USE_CAULDRON);
+					MushroomStewCauldronBlock.incrementFluidLevel(state, world, pos, 2);
+					world.playSound(null, pos, SoundEvents.ITEM_BOTTLE_EMPTY, SoundCategory.BLOCKS, 1.0F, 1.0F);
+				}
+
+				return ActionResult.success(world.isClient);
+			} else {
+				return ActionResult.PASS;
+			}
+		});
+		SUSPICIOUS_STEW_CAULDRON_BEHAVIOR.put(Items.BROWN_MUSHROOM, ADD_MUSHROOM_TO_STEW);
+		SUSPICIOUS_STEW_CAULDRON_BEHAVIOR.put(Items.RED_MUSHROOM, ADD_MUSHROOM_TO_STEW);
+		SUSPICIOUS_STEW_CAULDRON_BEHAVIOR.put(Items.WATER_BUCKET, FILL_WITH_WATER);
+		SUSPICIOUS_STEW_CAULDRON_BEHAVIOR.put(Items.LAVA_BUCKET, FILL_WITH_LAVA);
+		SUSPICIOUS_STEW_CAULDRON_BEHAVIOR.put(Items.POWDER_SNOW_BUCKET, FILL_WITH_POWDER_SNOW);
+		SUSPICIOUS_STEW_CAULDRON_BEHAVIOR.put(Items.MILK_BUCKET, FILL_WITH_MILK);
 	}
 }

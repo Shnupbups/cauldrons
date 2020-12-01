@@ -1,4 +1,4 @@
-package com.shnupbups.cauldrons;
+package com.shnupbups.cauldrons.block;
 
 import net.minecraft.block.BlockState;
 import net.minecraft.block.cauldron.CauldronBehavior;
@@ -15,6 +15,7 @@ public class DragonBreathCauldronBlock extends ModThreeLeveledCauldronBlock {
 		super(settings, behaviorMap);
 	}
 
+	@Override
 	public void onEntityCollision(BlockState state, World world, BlockPos pos, Entity entity) {
 		if (this.isEntityTouchingFluid(state, pos, entity)) {
 			entity.damage(DamageSource.DRAGON_BREATH, 2.0f);

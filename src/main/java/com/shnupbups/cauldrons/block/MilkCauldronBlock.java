@@ -1,4 +1,4 @@
-package com.shnupbups.cauldrons;
+package com.shnupbups.cauldrons.block;
 
 import net.minecraft.block.AbstractCauldronBlock;
 import net.minecraft.block.BlockState;
@@ -19,10 +19,12 @@ public class MilkCauldronBlock extends AbstractCauldronBlock {
 		super(settings, behaviorMap);
 	}
 
+	@Override
 	protected double getFluidHeight(BlockState state) {
 		return 0.9375D;
 	}
 
+	@Override
 	public void onEntityCollision(BlockState state, World world, BlockPos pos, Entity entity) {
 		if (this.isEntityTouchingFluid(state, pos, entity) && entity instanceof LivingEntity) {
 			LivingEntity living = (LivingEntity)entity;
@@ -32,6 +34,7 @@ public class MilkCauldronBlock extends AbstractCauldronBlock {
 		}
 	}
 
+	@Override
 	public int getComparatorOutput(BlockState state, World world, BlockPos pos) {
 		return 1;
 	}

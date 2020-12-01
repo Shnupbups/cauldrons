@@ -1,4 +1,4 @@
-package com.shnupbups.cauldrons;
+package com.shnupbups.cauldrons.block;
 
 import net.minecraft.block.AbstractCauldronBlock;
 import net.minecraft.block.Block;
@@ -28,6 +28,7 @@ public class ModThreeLeveledCauldronBlock extends AbstractCauldronBlock {
 		this.setDefaultState(this.stateManager.getDefaultState().with(LEVEL, 1));
 	}
 
+	@Override
 	protected double getFluidHeight(BlockState state) {
 		return (6.0D + (double)state.get(LEVEL) * 3.0D) / 16.0D;
 	}
@@ -37,10 +38,12 @@ public class ModThreeLeveledCauldronBlock extends AbstractCauldronBlock {
 		world.setBlockState(pos, i == 0 ? Blocks.CAULDRON.getDefaultState() : state.with(LEVEL, i));
 	}
 
+	@Override
 	public int getComparatorOutput(BlockState state, World world, BlockPos pos) {
 		return state.get(LEVEL);
 	}
 
+	@Override
 	protected void appendProperties(StateManager.Builder<Block, BlockState> builder) {
 		builder.add(LEVEL);
 	}

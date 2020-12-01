@@ -1,28 +1,34 @@
-package com.shnupbups.cauldrons;
+package com.shnupbups.cauldrons.block;
 
 import net.minecraft.block.AbstractCauldronBlock;
 import net.minecraft.block.Block;
 import net.minecraft.block.BlockState;
 import net.minecraft.block.Blocks;
 import net.minecraft.block.cauldron.CauldronBehavior;
+import net.minecraft.entity.Entity;
+import net.minecraft.entity.LivingEntity;
+import net.minecraft.entity.effect.StatusEffects;
+import net.minecraft.entity.player.PlayerEntity;
 import net.minecraft.item.Item;
 import net.minecraft.state.StateManager;
 import net.minecraft.state.property.IntProperty;
+import net.minecraft.state.property.Properties;
 import net.minecraft.util.math.BlockPos;
 import net.minecraft.world.World;
 
 import java.util.Map;
 
-public class BeetrootSoupCauldronBlock extends AbstractCauldronBlock {
-	public static final IntProperty LEVEL = IntProperty.of("level", 1, 18);
+public class ExperienceCauldronBlock extends AbstractCauldronBlock {
+	public static final IntProperty LEVEL = IntProperty.of("level", 1, 30);;
 
-	public BeetrootSoupCauldronBlock(Settings settings, Map<Item, CauldronBehavior> behaviorMap) {
+	public ExperienceCauldronBlock(Settings settings, Map<Item, CauldronBehavior> behaviorMap) {
 		super(settings, behaviorMap);
 		this.setDefaultState(this.stateManager.getDefaultState().with(LEVEL, 1));
 	}
 
+	@Override
 	protected double getFluidHeight(BlockState state) {
-		return (6.0D + (double)state.get(LEVEL) * 0.5D) / 16.0D;
+		return (6.0D + ((double)state.get(LEVEL)/10) * 3.0D) / 16.0D;
 	}
 
 	public static void decrementFluidLevel(BlockState state, World world, BlockPos pos, int amount) {
@@ -31,15 +37,26 @@ public class BeetrootSoupCauldronBlock extends AbstractCauldronBlock {
 	}
 
 	public static void incrementFluidLevel(BlockState state, World world, BlockPos pos, int amount) {
-		int i = Math.min(state.get(LEVEL) + amount, 18);
+		int i = Math.min(state.get(LEVEL) + amount, 30);
 		world.setBlockState(pos, state.with(LEVEL, i));
 	}
 
+	@Override
 	public int getComparatorOutput(BlockState state, World world, BlockPos pos) {
-		return state.get(LEVEL)/2;
+		return Math.max(1, state.get(LEVEL)/2);
 	}
 
+	@Override
 	protected void appendProperties(StateManager.Builder<Block, BlockState> builder) {
 		builder.add(LEVEL);
+	}
+
+	@Override
+	public void onEntityCollision(BlockState state, World world, BlockPos pos, Entity entity) {
+		if (this.isEntityTouchingFluid(state, pos, entity) && entity instanceof PlayerEntity) {
+			PlayerEntity player = (PlayerEntity)entity;
+			player.addExperience(1);
+			decrementFluidLevel(state, world, pos, 1);
+		}
 	}
 }
