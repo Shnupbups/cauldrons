@@ -35,7 +35,7 @@ public interface ModCauldronBehavior extends CauldronBehavior {
 	};
 	CauldronBehavior ADD_MUSHROOM_TO_EMPTY = (state, world, pos, player, hand, stack) -> {
 		if (!world.isClient) {
-			stack.decrement(1);
+			if(!player.isCreative()) stack.decrement(1);
 			player.incrementStat(Stats.USE_CAULDRON);
 			world.setBlockState(pos, ModBlocks.MUSHROOM_STEW_CAULDRON.getDefaultState());
 			world.playSound(null, pos, SoundEvents.ENTITY_ITEM_PICKUP, SoundCategory.BLOCKS, 1.0F, 1.0F);
@@ -46,7 +46,7 @@ public interface ModCauldronBehavior extends CauldronBehavior {
 	CauldronBehavior ADD_MUSHROOM_TO_STEW = (state, world, pos, player, hand, stack) -> {
 		if (state.get(MushroomStewCauldronBlock.LEVEL) != 6) {
 			if (!world.isClient) {
-				stack.decrement(1);
+				if(!player.isCreative()) stack.decrement(1);
 				player.incrementStat(Stats.USE_CAULDRON);
 				MushroomStewCauldronBlock.incrementFluidLevel(state, world, pos, 1);
 				world.playSound(null, pos, SoundEvents.ENTITY_ITEM_PICKUP, SoundCategory.BLOCKS, 1.0F, 1.0F);
@@ -124,7 +124,7 @@ public interface ModCauldronBehavior extends CauldronBehavior {
 		});
 		EMPTY_CAULDRON_BEHAVIOR.put(Items.BEETROOT, (state, world, pos, player, hand, stack) -> {
 			if (!world.isClient) {
-				stack.decrement(1);
+				if(!player.isCreative()) stack.decrement(1);
 				player.incrementStat(Stats.USE_CAULDRON);
 				world.setBlockState(pos, ModBlocks.BEETROOT_SOUP_CAULDRON.getDefaultState());
 				world.playSound(null, pos, SoundEvents.ENTITY_ITEM_PICKUP, SoundCategory.BLOCKS, 1.0F, 1.0F);
@@ -376,7 +376,7 @@ public interface ModCauldronBehavior extends CauldronBehavior {
 		BEETROOT_SOUP_CAULDRON_BEHAVIOR.put(Items.BEETROOT, (state, world, pos, player, hand, stack) -> {
 			if (state.get(BeetrootSoupCauldronBlock.LEVEL) != 18) {
 				if (!world.isClient) {
-					stack.decrement(1);
+					if(!player.isCreative()) stack.decrement(1);
 					player.incrementStat(Stats.USE_CAULDRON);
 					BeetrootSoupCauldronBlock.incrementFluidLevel(state, world, pos, 1);
 					world.playSound(null, pos, SoundEvents.ENTITY_ITEM_PICKUP, SoundCategory.BLOCKS, 1.0F, 1.0F);
