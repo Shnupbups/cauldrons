@@ -12,6 +12,6 @@ public class ModBlockEntityTypes {
 	public static final BlockEntityType<SuspiciousStewCauldronBlockEntity> SUSPICIOUS_STEW_CAULDRON = FabricBlockEntityTypeBuilder.create(SuspiciousStewCauldronBlockEntity::new, ModBlocks.SUSPICIOUS_STEW_CAULDRON).build(null);
 
 	public static void init() {
-		Registry.register(Registry.BLOCK_ENTITY_TYPE, Cauldrons.id("suspicious_stew_caudlron"), SUSPICIOUS_STEW_CAULDRON);
+		Registry.register(Registry.BLOCK_ENTITY_TYPE, Cauldrons.id("suspicious_stew_cauldron"), SUSPICIOUS_STEW_CAULDRON);
 	}
 }
