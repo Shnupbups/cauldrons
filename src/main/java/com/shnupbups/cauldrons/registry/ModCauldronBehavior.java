@@ -12,9 +12,10 @@ import net.minecraft.sound.SoundEvents;
 import net.minecraft.stat.Stats;
 import net.minecraft.util.ActionResult;
 
+import com.shnupbups.cauldrons.block.AbstractLeveledCauldronBlock;
 import com.shnupbups.cauldrons.block.BeetrootSoupCauldronBlock;
 import com.shnupbups.cauldrons.block.ExperienceCauldronBlock;
-import com.shnupbups.cauldrons.block.ModThreeLeveledCauldronBlock;
+import com.shnupbups.cauldrons.block.ThreeLeveledCauldronBlock;
 import com.shnupbups.cauldrons.block.MushroomStewCauldronBlock;
 import com.shnupbups.cauldrons.block.entity.SuspiciousStewCauldronBlockEntity;
 
@@ -48,7 +49,7 @@ public interface ModCauldronBehavior extends CauldronBehavior {
 			if (!world.isClient) {
 				if(!player.isCreative()) stack.decrement(1);
 				player.incrementStat(Stats.USE_CAULDRON);
-				MushroomStewCauldronBlock.incrementFluidLevel(state, world, pos, 1);
+				AbstractLeveledCauldronBlock.incrementFluidLevel(state, world, pos, 1);
 				world.playSound(null, pos, SoundEvents.ENTITY_ITEM_PICKUP, SoundCategory.BLOCKS, 1.0F, 1.0F);
 			}
 
@@ -165,18 +166,18 @@ public interface ModCauldronBehavior extends CauldronBehavior {
 			if (!world.isClient) {
 				player.setStackInHand(hand, ItemUsage.exchangeStack(stack, player, new ItemStack(Items.HONEY_BOTTLE)));
 				player.incrementStat(Stats.USE_CAULDRON);
-				ModThreeLeveledCauldronBlock.decrementFluidLevel(state, world, pos);
+				AbstractLeveledCauldronBlock.decrementFluidLevel(state, world, pos);
 				world.playSound(null, pos, SoundEvents.ITEM_BOTTLE_FILL, SoundCategory.BLOCKS, 1.0F, 1.0F);
 			}
 
 			return ActionResult.success(world.isClient);
 		});
 		HONEY_CAULDRON_BEHAVIOR.put(Items.HONEY_BOTTLE, (state, world, pos, player, hand, stack) -> {
-			if (state.get(ModThreeLeveledCauldronBlock.LEVEL) != 3) {
+			if (state.get(ThreeLeveledCauldronBlock.LEVEL) != 3) {
 				if (!world.isClient) {
 					player.setStackInHand(hand, ItemUsage.exchangeStack(stack, player, new ItemStack(Items.GLASS_BOTTLE)));
 					player.incrementStat(Stats.USE_CAULDRON);
-					world.setBlockState(pos, state.cycle(ModThreeLeveledCauldronBlock.LEVEL));
+					AbstractLeveledCauldronBlock.incrementFluidLevel(state, world, pos);
 					world.playSound(null, pos, SoundEvents.ITEM_BOTTLE_EMPTY, SoundCategory.BLOCKS, 1.0F, 1.0F);
 				}
 
@@ -194,18 +195,18 @@ public interface ModCauldronBehavior extends CauldronBehavior {
 			if (!world.isClient) {
 				player.setStackInHand(hand, ItemUsage.exchangeStack(stack, player, new ItemStack(Items.DRAGON_BREATH)));
 				player.incrementStat(Stats.USE_CAULDRON);
-				ModThreeLeveledCauldronBlock.decrementFluidLevel(state, world, pos);
+				AbstractLeveledCauldronBlock.decrementFluidLevel(state, world, pos);
 				world.playSound(null, pos, SoundEvents.ITEM_BOTTLE_FILL, SoundCategory.BLOCKS, 1.0F, 1.0F);
 			}
 
 			return ActionResult.success(world.isClient);
 		});
 		DRAGON_BREATH_CAULDRON_BEHAVIOR.put(Items.DRAGON_BREATH, (state, world, pos, player, hand, stack) -> {
-			if (state.get(ModThreeLeveledCauldronBlock.LEVEL) != 3) {
+			if (state.get(ThreeLeveledCauldronBlock.LEVEL) != 3) {
 				if (!world.isClient) {
 					player.setStackInHand(hand, ItemUsage.exchangeStack(stack, player, new ItemStack(Items.GLASS_BOTTLE)));
 					player.incrementStat(Stats.USE_CAULDRON);
-					world.setBlockState(pos, state.cycle(ModThreeLeveledCauldronBlock.LEVEL));
+					AbstractLeveledCauldronBlock.incrementFluidLevel(state, world, pos);
 					world.playSound(null, pos, SoundEvents.ITEM_BOTTLE_EMPTY, SoundCategory.BLOCKS, 1.0F, 1.0F);
 				}
 
@@ -218,7 +219,7 @@ public interface ModCauldronBehavior extends CauldronBehavior {
 			if (!world.isClient) {
 				player.setStackInHand(hand, ItemUsage.exchangeStack(stack, player, PotionUtil.setPotion(new ItemStack(Items.LINGERING_POTION), PotionUtil.getPotion(stack))));
 				player.incrementStat(Stats.USE_CAULDRON);
-				ModThreeLeveledCauldronBlock.decrementFluidLevel(state, world, pos);
+				AbstractLeveledCauldronBlock.decrementFluidLevel(state, world, pos);
 				world.playSound(null, pos, SoundEvents.ITEM_BOTTLE_FILL_DRAGONBREATH, SoundCategory.BLOCKS, 1.0F, 1.0F);
 			}
 
@@ -234,7 +235,7 @@ public interface ModCauldronBehavior extends CauldronBehavior {
 				if (!world.isClient) {
 					player.setStackInHand(hand, ItemUsage.exchangeStack(stack, player, new ItemStack(Items.EXPERIENCE_BOTTLE)));
 					player.incrementStat(Stats.USE_CAULDRON);
-					ExperienceCauldronBlock.decrementFluidLevel(state, world, pos, 10);
+					AbstractLeveledCauldronBlock.decrementFluidLevel(state, world, pos, 10);
 					world.playSound(null, pos, SoundEvents.ITEM_BOTTLE_FILL, SoundCategory.BLOCKS, 1.0F, 1.0F);
 				}
 
@@ -248,7 +249,7 @@ public interface ModCauldronBehavior extends CauldronBehavior {
 				if (!world.isClient) {
 					player.setStackInHand(hand, ItemUsage.exchangeStack(stack, player, new ItemStack(Items.GLASS_BOTTLE)));
 					player.incrementStat(Stats.USE_CAULDRON);
-					ExperienceCauldronBlock.incrementFluidLevel(state, world, pos, world.getRandom().nextInt(8)+3);
+					AbstractLeveledCauldronBlock.incrementFluidLevel(state, world, pos, world.getRandom().nextInt(8)+3);
 					world.playSound(null, pos, SoundEvents.ITEM_BOTTLE_EMPTY, SoundCategory.BLOCKS, 1.0F, 1.0F);
 				}
 
@@ -267,7 +268,7 @@ public interface ModCauldronBehavior extends CauldronBehavior {
 				if (!world.isClient) {
 					player.setStackInHand(hand, ItemUsage.exchangeStack(stack, player, new ItemStack(Items.MUSHROOM_STEW)));
 					player.incrementStat(Stats.USE_CAULDRON);
-					MushroomStewCauldronBlock.decrementFluidLevel(state, world, pos, 2);
+					AbstractLeveledCauldronBlock.decrementFluidLevel(state, world, pos, 2);
 					world.playSound(null, pos, SoundEvents.ITEM_BOTTLE_FILL, SoundCategory.BLOCKS, 1.0F, 1.0F);
 				}
 
@@ -281,7 +282,7 @@ public interface ModCauldronBehavior extends CauldronBehavior {
 				if (!world.isClient) {
 					player.setStackInHand(hand, ItemUsage.exchangeStack(stack, player, new ItemStack(Items.BOWL)));
 					player.incrementStat(Stats.USE_CAULDRON);
-					MushroomStewCauldronBlock.incrementFluidLevel(state, world, pos, 2);
+					AbstractLeveledCauldronBlock.incrementFluidLevel(state, world, pos, 2);
 					world.playSound(null, pos, SoundEvents.ITEM_BOTTLE_EMPTY, SoundCategory.BLOCKS, 1.0F, 1.0F);
 				}
 
@@ -303,7 +304,7 @@ public interface ModCauldronBehavior extends CauldronBehavior {
 					player.incrementStat(Stats.USE_CAULDRON);
 					BlockState newState = ModBlocks.SUSPICIOUS_STEW_CAULDRON.getDefaultState().with(MushroomStewCauldronBlock.LEVEL, state.get(MushroomStewCauldronBlock.LEVEL));
 					world.setBlockState(pos, newState);
-					MushroomStewCauldronBlock.incrementFluidLevel(newState, world, pos, 2);
+					AbstractLeveledCauldronBlock.incrementFluidLevel(newState, world, pos, 2);
 					if(world.getBlockEntity(pos) != null) {
 						((SuspiciousStewCauldronBlockEntity)world.getBlockEntity(pos)).addEffectsFromStew(stack);
 					}
@@ -320,18 +321,18 @@ public interface ModCauldronBehavior extends CauldronBehavior {
 			if (!world.isClient) {
 				player.setStackInHand(hand, ItemUsage.exchangeStack(stack, player, new ItemStack(Items.RABBIT_STEW)));
 				player.incrementStat(Stats.USE_CAULDRON);
-				ModThreeLeveledCauldronBlock.decrementFluidLevel(state, world, pos);
+				AbstractLeveledCauldronBlock.decrementFluidLevel(state, world, pos);
 				world.playSound(null, pos, SoundEvents.ITEM_BOTTLE_FILL, SoundCategory.BLOCKS, 1.0F, 1.0F);
 			}
 
 			return ActionResult.success(world.isClient);
 		});
 		RABBIT_STEW_CAULDRON_BEHAVIOR.put(Items.RABBIT_STEW, (state, world, pos, player, hand, stack) -> {
-			if (state.get(ModThreeLeveledCauldronBlock.LEVEL) != 3) {
+			if (state.get(ThreeLeveledCauldronBlock.LEVEL) != 3) {
 				if (!world.isClient) {
 					player.setStackInHand(hand, ItemUsage.exchangeStack(stack, player, new ItemStack(Items.BOWL)));
 					player.incrementStat(Stats.USE_CAULDRON);
-					world.setBlockState(pos, state.cycle(ModThreeLeveledCauldronBlock.LEVEL));
+					AbstractLeveledCauldronBlock.incrementFluidLevel(state, world, pos);
 					world.playSound(null, pos, SoundEvents.ITEM_BOTTLE_EMPTY, SoundCategory.BLOCKS, 1.0F, 1.0F);
 				}
 
@@ -350,7 +351,7 @@ public interface ModCauldronBehavior extends CauldronBehavior {
 				if (!world.isClient) {
 					player.setStackInHand(hand, ItemUsage.exchangeStack(stack, player, new ItemStack(Items.BEETROOT_SOUP)));
 					player.incrementStat(Stats.USE_CAULDRON);
-					BeetrootSoupCauldronBlock.decrementFluidLevel(state, world, pos, 6);
+					AbstractLeveledCauldronBlock.decrementFluidLevel(state, world, pos, 6);
 					world.playSound(null, pos, SoundEvents.ITEM_BOTTLE_FILL, SoundCategory.BLOCKS, 1.0F, 1.0F);
 				}
 
@@ -364,7 +365,7 @@ public interface ModCauldronBehavior extends CauldronBehavior {
 				if (!world.isClient) {
 					player.setStackInHand(hand, ItemUsage.exchangeStack(stack, player, new ItemStack(Items.BOWL)));
 					player.incrementStat(Stats.USE_CAULDRON);
-					BeetrootSoupCauldronBlock.incrementFluidLevel(state, world, pos, 6);
+					AbstractLeveledCauldronBlock.incrementFluidLevel(state, world, pos, 6);
 					world.playSound(null, pos, SoundEvents.ITEM_BOTTLE_EMPTY, SoundCategory.BLOCKS, 1.0F, 1.0F);
 				}
 
@@ -378,7 +379,7 @@ public interface ModCauldronBehavior extends CauldronBehavior {
 				if (!world.isClient) {
 					if(!player.isCreative()) stack.decrement(1);
 					player.incrementStat(Stats.USE_CAULDRON);
-					BeetrootSoupCauldronBlock.incrementFluidLevel(state, world, pos, 1);
+					AbstractLeveledCauldronBlock.incrementFluidLevel(state, world, pos);
 					world.playSound(null, pos, SoundEvents.ENTITY_ITEM_PICKUP, SoundCategory.BLOCKS, 1.0F, 1.0F);
 				}
 
@@ -403,7 +404,7 @@ public interface ModCauldronBehavior extends CauldronBehavior {
 					player.incrementStat(Stats.USE_CAULDRON);
 					BlockState newState = ModBlocks.MUSHROOM_STEW_CAULDRON.getDefaultState().with(MushroomStewCauldronBlock.LEVEL, state.get(MushroomStewCauldronBlock.LEVEL));
 					world.setBlockState(pos, newState);
-					MushroomStewCauldronBlock.decrementFluidLevel(newState, world, pos, 2);
+					AbstractLeveledCauldronBlock.decrementFluidLevel(newState, world, pos, 2);
 					world.playSound(null, pos, SoundEvents.ITEM_BOTTLE_FILL, SoundCategory.BLOCKS, 1.0F, 1.0F);
 				}
 
@@ -420,7 +421,7 @@ public interface ModCauldronBehavior extends CauldronBehavior {
 						((SuspiciousStewCauldronBlockEntity)world.getBlockEntity(pos)).addEffectsFromStew(stack);
 					}
 					player.incrementStat(Stats.USE_CAULDRON);
-					MushroomStewCauldronBlock.incrementFluidLevel(state, world, pos, 2);
+					AbstractLeveledCauldronBlock.incrementFluidLevel(state, world, pos, 2);
 					world.playSound(null, pos, SoundEvents.ITEM_BOTTLE_EMPTY, SoundCategory.BLOCKS, 1.0F, 1.0F);
 				}
 

@@ -20,22 +20,26 @@ import net.minecraft.world.biome.Biome;
 
 import java.util.Map;
 
-public class ModThreeLeveledCauldronBlock extends AbstractCauldronBlock {
+public class ThreeLeveledCauldronBlock extends AbstractLeveledCauldronBlock {
 	public static final IntProperty LEVEL = Properties.LEVEL_3;
 
-	public ModThreeLeveledCauldronBlock(Settings settings, Map<Item, CauldronBehavior> behaviorMap) {
+	public ThreeLeveledCauldronBlock(Settings settings, Map<Item, CauldronBehavior> behaviorMap) {
 		super(settings, behaviorMap);
-		this.setDefaultState(this.stateManager.getDefaultState().with(LEVEL, 1));
+	}
+
+	@Override
+	public IntProperty getLevelProperty() {
+		return LEVEL;
+	}
+
+	@Override
+	public int getMaxLevel() {
+		return 3;
 	}
 
 	@Override
 	protected double getFluidHeight(BlockState state) {
 		return (6.0D + (double)state.get(LEVEL) * 3.0D) / 16.0D;
-	}
-
-	public static void decrementFluidLevel(BlockState state, World world, BlockPos pos) {
-		int i = state.get(LEVEL) - 1;
-		world.setBlockState(pos, i == 0 ? Blocks.CAULDRON.getDefaultState() : state.with(LEVEL, i));
 	}
 
 	@Override

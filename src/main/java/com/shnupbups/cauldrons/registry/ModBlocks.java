@@ -12,7 +12,7 @@ import com.shnupbups.cauldrons.block.DragonBreathCauldronBlock;
 import com.shnupbups.cauldrons.block.ExperienceCauldronBlock;
 import com.shnupbups.cauldrons.block.HoneyCauldronBlock;
 import com.shnupbups.cauldrons.block.MilkCauldronBlock;
-import com.shnupbups.cauldrons.block.ModThreeLeveledCauldronBlock;
+import com.shnupbups.cauldrons.block.ThreeLeveledCauldronBlock;
 import com.shnupbups.cauldrons.block.MushroomStewCauldronBlock;
 import com.shnupbups.cauldrons.block.SuspiciousStewCauldronBlock;
 
@@ -22,7 +22,7 @@ public class ModBlocks {
 	public static Block DRAGON_BREATH_CAULDRON = new DragonBreathCauldronBlock(FabricBlockSettings.copyOf(Blocks.CAULDRON), ModCauldronBehavior.DRAGON_BREATH_CAULDRON_BEHAVIOR);
 	public static Block EXPERIENCE_CAULDRON = new ExperienceCauldronBlock(FabricBlockSettings.copyOf(Blocks.CAULDRON), ModCauldronBehavior.EXPERIENCE_CAULDRON_BEHAVIOR);
 	public static Block MUSHROOM_STEW_CAULDRON = new MushroomStewCauldronBlock(FabricBlockSettings.copyOf(Blocks.CAULDRON), ModCauldronBehavior.MUSHROOM_STEW_CAULDRON_BEHAVIOR);
-	public static Block RABBIT_STEW_CAULDRON = new ModThreeLeveledCauldronBlock(FabricBlockSettings.copyOf(Blocks.CAULDRON), ModCauldronBehavior.RABBIT_STEW_CAULDRON_BEHAVIOR);
+	public static Block RABBIT_STEW_CAULDRON = new ThreeLeveledCauldronBlock(FabricBlockSettings.copyOf(Blocks.CAULDRON), ModCauldronBehavior.RABBIT_STEW_CAULDRON_BEHAVIOR);
 	public static Block BEETROOT_SOUP_CAULDRON = new BeetrootSoupCauldronBlock(FabricBlockSettings.copyOf(Blocks.CAULDRON), ModCauldronBehavior.BEETROOT_SOUP_CAULDRON_BEHAVIOR);
 	public static Block SUSPICIOUS_STEW_CAULDRON = new SuspiciousStewCauldronBlock(FabricBlockSettings.copyOf(Blocks.CAULDRON), ModCauldronBehavior.SUSPICIOUS_STEW_CAULDRON_BEHAVIOR);
 

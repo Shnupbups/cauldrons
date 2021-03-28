@@ -18,27 +18,26 @@ import net.minecraft.world.World;
 
 import java.util.Map;
 
-public class ExperienceCauldronBlock extends AbstractCauldronBlock {
+public class ExperienceCauldronBlock extends AbstractLeveledCauldronBlock {
 	public static final IntProperty LEVEL = IntProperty.of("level", 1, 30);;
 
 	public ExperienceCauldronBlock(Settings settings, Map<Item, CauldronBehavior> behaviorMap) {
 		super(settings, behaviorMap);
-		this.setDefaultState(this.stateManager.getDefaultState().with(LEVEL, 1));
+	}
+
+	@Override
+	public IntProperty getLevelProperty() {
+		return LEVEL;
+	}
+
+	@Override
+	public int getMaxLevel() {
+		return 30;
 	}
 
 	@Override
 	protected double getFluidHeight(BlockState state) {
 		return (6.0D + ((double)state.get(LEVEL)/10) * 3.0D) / 16.0D;
-	}
-
-	public static void decrementFluidLevel(BlockState state, World world, BlockPos pos, int amount) {
-		int i = state.get(LEVEL) - amount;
-		world.setBlockState(pos, i <= 0 ? Blocks.CAULDRON.getDefaultState() : state.with(LEVEL, i));
-	}
-
-	public static void incrementFluidLevel(BlockState state, World world, BlockPos pos, int amount) {
-		int i = Math.min(state.get(LEVEL) + amount, 30);
-		world.setBlockState(pos, state.with(LEVEL, i));
 	}
 
 	@Override

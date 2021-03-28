@@ -10,7 +10,7 @@ import net.minecraft.world.World;
 
 import java.util.Map;
 
-public class DragonBreathCauldronBlock extends ModThreeLeveledCauldronBlock {
+public class DragonBreathCauldronBlock extends ThreeLeveledCauldronBlock {
 	public DragonBreathCauldronBlock(Settings settings, Map<Item, CauldronBehavior> behaviorMap) {
 		super(settings, behaviorMap);
 	}
