@@ -6,9 +6,8 @@ import net.minecraft.block.entity.BlockEntity;
 import net.minecraft.entity.effect.StatusEffect;
 import net.minecraft.entity.effect.StatusEffectInstance;
 import net.minecraft.item.ItemStack;
-import net.minecraft.item.SuspiciousStewItem;
-import net.minecraft.nbt.CompoundTag;
-import net.minecraft.nbt.ListTag;
+import net.minecraft.nbt.NbtCompound;
+import net.minecraft.nbt.NbtList;
 import net.minecraft.util.math.BlockPos;
 
 import com.shnupbups.cauldrons.registry.ModBlockEntityTypes;
@@ -24,19 +23,21 @@ public class SuspiciousStewCauldronBlockEntity extends BlockEntity {
 	}
 
 	public List<StatusEffectInstance> getEffects() {
+		List<StatusEffectInstance> effects = new ArrayList<>();
+		this.effects.forEach((effect) -> effects.add(new StatusEffectInstance(effect)));
 		return effects;
 	}
 
 	public void addEffectsToStew(ItemStack stew) {
-		CompoundTag compoundTag = stew.getOrCreateTag();
-		ListTag listTag = compoundTag.getList("Effects", 9);
+		NbtCompound nbtCompound = stew.getOrCreateTag();
+		NbtList nbtList = nbtCompound.getList("Effects", 9);
 		for (StatusEffectInstance effect:getEffects()) {
-			CompoundTag compoundTag2 = new CompoundTag();
-			compoundTag2.putByte("EffectId", (byte)StatusEffect.getRawId(effect.getEffectType()));
-			compoundTag2.putInt("EffectDuration", effect.getDuration());
-			listTag.add(compoundTag2);
+			NbtCompound nbtCompound2 = new NbtCompound();
+			nbtCompound2.putByte("EffectId", (byte)StatusEffect.getRawId(effect.getEffectType()));
+			nbtCompound2.putInt("EffectDuration", effect.getDuration());
+			nbtList.add(nbtCompound2);
 		}
-		compoundTag.put("Effects", listTag);
+		nbtCompound.put("Effects", nbtList);
 	}
 
 	public boolean addEffect(StatusEffect effect, int duration) {
@@ -48,18 +49,18 @@ public class SuspiciousStewCauldronBlockEntity extends BlockEntity {
 	}
 
 	public void addEffectsFromStew(ItemStack stew) {
-		CompoundTag compoundTag = stew.getTag();
-		if (compoundTag != null && compoundTag.contains("Effects", 9)) {
-			ListTag listTag = compoundTag.getList("Effects", 10);
+		NbtCompound nbtCompound = stew.getTag();
+		if (nbtCompound != null && nbtCompound.contains("Effects", 9)) {
+			NbtList nbtList = nbtCompound.getList("Effects", 10);
 
-			for (int i = 0; i < listTag.size(); ++i) {
+			for (int i = 0; i < nbtList.size(); ++i) {
 				int j = 160;
-				CompoundTag compoundTag2 = listTag.getCompound(i);
-				if (compoundTag2.contains("EffectDuration", 3)) {
-					j = compoundTag2.getInt("EffectDuration");
+				NbtCompound nbtCompound2 = nbtList.getCompound(i);
+				if (nbtCompound2.contains("EffectDuration", 3)) {
+					j = nbtCompound2.getInt("EffectDuration");
 				}
 
-				StatusEffect statusEffect = StatusEffect.byRawId(compoundTag2.getByte("EffectId"));
+				StatusEffect statusEffect = StatusEffect.byRawId(nbtCompound2.getByte("EffectId"));
 				if (statusEffect != null) {
 					addEffect(statusEffect, j);
 				}
@@ -95,19 +96,19 @@ public class SuspiciousStewCauldronBlockEntity extends BlockEntity {
 	}
 
 	@Override
-	public void fromTag(CompoundTag compoundTag) {
-		super.fromTag(compoundTag);
-		if (compoundTag != null && compoundTag.contains("Effects", 9)) {
-			ListTag listTag = compoundTag.getList("Effects", 10);
+	public void readNbt(NbtCompound nbtCompound) {
+		super.readNbt(nbtCompound);
+		if (nbtCompound != null && nbtCompound.contains("Effects", 9)) {
+			NbtList nbtList = nbtCompound.getList("Effects", 10);
 
-			for (int i = 0; i < listTag.size(); ++i) {
+			for (int i = 0; i < nbtList.size(); ++i) {
 				int j = 160;
-				CompoundTag compoundTag2 = listTag.getCompound(i);
-				if (compoundTag2.contains("EffectDuration", 3)) {
-					j = compoundTag2.getInt("EffectDuration");
+				NbtCompound nbtCompound2 = nbtList.getCompound(i);
+				if (nbtCompound2.contains("EffectDuration", 3)) {
+					j = nbtCompound2.getInt("EffectDuration");
 				}
 
-				StatusEffect statusEffect = StatusEffect.byRawId(compoundTag2.getByte("EffectId"));
+				StatusEffect statusEffect = StatusEffect.byRawId(nbtCompound2.getByte("EffectId"));
 				if (statusEffect != null) {
 					addEffect(statusEffect, j);
 				}
@@ -116,16 +117,16 @@ public class SuspiciousStewCauldronBlockEntity extends BlockEntity {
 	}
 
 	@Override
-	public CompoundTag toTag(CompoundTag compoundTag) {
-		super.toTag(compoundTag);
-		ListTag listTag = compoundTag.getList("Effects", 9);
+	public NbtCompound writeNbt(NbtCompound nbtCompound) {
+		super.writeNbt(nbtCompound);
+		NbtList nbtList = nbtCompound.getList("Effects", 9);
 		for (StatusEffectInstance effect:getEffects()) {
-			CompoundTag compoundTag2 = new CompoundTag();
-			compoundTag2.putByte("EffectId", (byte)StatusEffect.getRawId(effect.getEffectType()));
-			compoundTag2.putInt("EffectDuration", effect.getDuration());
-			listTag.add(compoundTag2);
+			NbtCompound nbtCompound2 = new NbtCompound();
+			nbtCompound2.putByte("EffectId", (byte)StatusEffect.getRawId(effect.getEffectType()));
+			nbtCompound2.putInt("EffectDuration", effect.getDuration());
+			nbtList.add(nbtCompound2);
 		}
-		compoundTag.put("Effects", listTag);
-		return compoundTag;
+		nbtCompound.put("Effects", nbtList);
+		return nbtCompound;
 	}
 }

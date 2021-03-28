@@ -18,7 +18,7 @@ public class DragonBreathCauldronBlock extends ModThreeLeveledCauldronBlock {
 	@Override
 	public void onEntityCollision(BlockState state, World world, BlockPos pos, Entity entity) {
 		if (this.isEntityTouchingFluid(state, pos, entity)) {
-			entity.damage(DamageSource.DRAGON_BREATH, 2.0f);
+			entity.damage(DamageSource.DRAGON_BREATH, 2.5f);
 		}
 	}
 }

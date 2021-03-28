@@ -55,8 +55,11 @@ public class ExperienceCauldronBlock extends AbstractCauldronBlock {
 	public void onEntityCollision(BlockState state, World world, BlockPos pos, Entity entity) {
 		if (this.isEntityTouchingFluid(state, pos, entity) && entity instanceof PlayerEntity) {
 			PlayerEntity player = (PlayerEntity)entity;
-			player.addExperience(1);
-			decrementFluidLevel(state, world, pos, 1);
+			if(!player.isSpectator()) {
+				player.addExperience(1);
+				if(!player.isCreative())
+					decrementFluidLevel(state, world, pos, 1);
+			}
 		}
 	}
 }
