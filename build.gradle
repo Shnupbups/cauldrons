@@ -3,12 +3,13 @@ plugins {
 	id 'maven-publish'
 }
 
-sourceCompatibility = JavaVersion.VERSION_1_8
-targetCompatibility = JavaVersion.VERSION_1_8
-
 archivesBaseName = project.mod_name
 version = project.mod_version + "+" + project.version_meta
 group = project.maven_group
+
+// This field defines the Java version your mod target.
+// The Minecraft launcher currently installs Java 8 for users, so your mod probably wants to target Java 8 too.
+def targetJavaVersion = 8
 
 minecraft {
 }
@@ -38,31 +39,34 @@ dependencies {
     //modImplementation "me.shedaniel:RoughlyEnoughItems:${project.rei_version}"
 }
 
+java {
+	sourceCompatibility = JavaVersion.toVersion(targetJavaVersion)
+	targetCompatibility = JavaVersion.toVersion(targetJavaVersion)
+
+	withSourcesJar()
+}
+
+tasks.withType(JavaCompile).configureEach {
+	it.options.encoding = "UTF-8"
+
+	if (JavaVersion.current().isJava9Compatible()) {
+		it.options.release.set(targetJavaVersion)
+	}
+}
+
 processResources {
 	inputs.property "version", project.mod_version
 
-	from(sourceSets.main.resources.srcDirs) {
-		include "fabric.mod.json"
+	filesMatching("fabric.mod.json") {
 		expand "version": project.mod_version
 	}
-
-	from(sourceSets.main.resources.srcDirs) {
-		exclude "fabric.mod.json"
-	}
-}
-
-tasks.withType(JavaCompile) {
-	options.encoding = "UTF-8"
-}
-
-task sourcesJar(type: Jar, dependsOn: classes) {
-	classifier = "sources"
-	from sourceSets.main.allSource
 }
 
 jar {
-	from "LICENSE"
-    manifest {
+	from("LICENSE") {
+		rename { "${it}_${project.archivesBaseName}" }
+	}
+	manifest {
         attributes([
                 "Specification-Title"     : "${mod_name}",
                 "Specification-Vendor"    : "${maven_group}",

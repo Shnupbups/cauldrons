@@ -1,9 +1,7 @@
 package com.shnupbups.cauldrons.block;
 
-import net.minecraft.block.AbstractCauldronBlock;
 import net.minecraft.block.Block;
 import net.minecraft.block.BlockState;
-import net.minecraft.block.Blocks;
 import net.minecraft.block.FlowerBlock;
 import net.minecraft.block.cauldron.CauldronBehavior;
 import net.minecraft.entity.player.PlayerEntity;
@@ -21,8 +19,8 @@ import net.minecraft.util.hit.BlockHitResult;
 import net.minecraft.util.math.BlockPos;
 import net.minecraft.world.World;
 
-import com.shnupbups.cauldrons.registry.ModBlocks;
 import com.shnupbups.cauldrons.block.entity.SuspiciousStewCauldronBlockEntity;
+import com.shnupbups.cauldrons.registry.ModBlocks;
 
 import java.util.Map;
 

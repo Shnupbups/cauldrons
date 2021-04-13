@@ -1,9 +1,7 @@
 package com.shnupbups.cauldrons.block;
 
-import net.minecraft.block.AbstractCauldronBlock;
 import net.minecraft.block.Block;
 import net.minecraft.block.BlockState;
-import net.minecraft.block.Blocks;
 import net.minecraft.block.cauldron.CauldronBehavior;
 import net.minecraft.item.Item;
 import net.minecraft.state.StateManager;

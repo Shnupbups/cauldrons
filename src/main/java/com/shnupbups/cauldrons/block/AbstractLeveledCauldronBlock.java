@@ -42,4 +42,9 @@ public abstract class AbstractLeveledCauldronBlock extends AbstractCauldronBlock
 	public static void incrementFluidLevel(BlockState state, World world, BlockPos pos) {
 		incrementFluidLevel(state, world, pos, 1);
 	}
+
+	@Override
+	public boolean isFull(BlockState state) {
+		return state.get(getLevelProperty()) == getMaxLevel();
+	}
 }

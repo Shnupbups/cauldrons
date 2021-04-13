@@ -1,22 +1,14 @@
 package com.shnupbups.cauldrons.block;
 
-import net.minecraft.block.AbstractCauldronBlock;
 import net.minecraft.block.Block;
 import net.minecraft.block.BlockState;
-import net.minecraft.block.Blocks;
-import net.minecraft.block.CauldronBlock;
-import net.minecraft.block.LeveledCauldronBlock;
 import net.minecraft.block.cauldron.CauldronBehavior;
-import net.minecraft.entity.Entity;
-import net.minecraft.entity.LivingEntity;
-import net.minecraft.entity.effect.StatusEffects;
 import net.minecraft.item.Item;
 import net.minecraft.state.StateManager;
 import net.minecraft.state.property.IntProperty;
 import net.minecraft.state.property.Properties;
 import net.minecraft.util.math.BlockPos;
 import net.minecraft.world.World;
-import net.minecraft.world.biome.Biome;
 
 import java.util.Map;
 

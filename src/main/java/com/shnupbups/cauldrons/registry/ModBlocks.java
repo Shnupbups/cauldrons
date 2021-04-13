@@ -12,9 +12,9 @@ import com.shnupbups.cauldrons.block.DragonBreathCauldronBlock;
 import com.shnupbups.cauldrons.block.ExperienceCauldronBlock;
 import com.shnupbups.cauldrons.block.HoneyCauldronBlock;
 import com.shnupbups.cauldrons.block.MilkCauldronBlock;
-import com.shnupbups.cauldrons.block.ThreeLeveledCauldronBlock;
 import com.shnupbups.cauldrons.block.MushroomStewCauldronBlock;
 import com.shnupbups.cauldrons.block.SuspiciousStewCauldronBlock;
+import com.shnupbups.cauldrons.block.ThreeLeveledCauldronBlock;
 
 public class ModBlocks {
 	public static Block MILK_CAULDRON = new MilkCauldronBlock(FabricBlockSettings.copyOf(Blocks.CAULDRON), ModCauldronBehavior.MILK_CAULDRON_BEHAVIOR);

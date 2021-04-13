@@ -15,8 +15,8 @@ import net.minecraft.util.ActionResult;
 import com.shnupbups.cauldrons.block.AbstractLeveledCauldronBlock;
 import com.shnupbups.cauldrons.block.BeetrootSoupCauldronBlock;
 import com.shnupbups.cauldrons.block.ExperienceCauldronBlock;
-import com.shnupbups.cauldrons.block.ThreeLeveledCauldronBlock;
 import com.shnupbups.cauldrons.block.MushroomStewCauldronBlock;
+import com.shnupbups.cauldrons.block.ThreeLeveledCauldronBlock;
 import com.shnupbups.cauldrons.block.entity.SuspiciousStewCauldronBlockEntity;
 
 import java.util.Map;

@@ -3,7 +3,6 @@ package com.shnupbups.cauldrons.block;
 import net.minecraft.block.AbstractCauldronBlock;
 import net.minecraft.block.BlockState;
 import net.minecraft.block.Blocks;
-import net.minecraft.block.CauldronBlock;
 import net.minecraft.block.cauldron.CauldronBehavior;
 import net.minecraft.entity.Entity;
 import net.minecraft.entity.LivingEntity;
@@ -23,6 +22,11 @@ public class MilkCauldronBlock extends AbstractCauldronBlock {
 	@Override
 	protected double getFluidHeight(BlockState state) {
 		return 0.9375D;
+	}
+
+	@Override
+	public boolean isFull(BlockState state) {
+		return true;
 	}
 
 	@Override
