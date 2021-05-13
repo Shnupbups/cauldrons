@@ -4,6 +4,8 @@ import net.fabricmc.fabric.api.object.builder.v1.block.FabricBlockSettings;
 
 import net.minecraft.block.Block;
 import net.minecraft.block.Blocks;
+import net.minecraft.item.Item;
+import net.minecraft.item.Items;
 import net.minecraft.util.registry.Registry;
 
 import com.shnupbups.cauldrons.Cauldrons;
@@ -35,5 +37,14 @@ public class ModBlocks {
 		Registry.register(Registry.BLOCK, Cauldrons.id("rabbit_stew_cauldron"), RABBIT_STEW_CAULDRON);
 		Registry.register(Registry.BLOCK, Cauldrons.id("beetroot_soup_cauldron"), BEETROOT_SOUP_CAULDRON);
 		Registry.register(Registry.BLOCK, Cauldrons.id("suspicious_stew_cauldron"), SUSPICIOUS_STEW_CAULDRON);
+
+		Item.BLOCK_ITEMS.put(MILK_CAULDRON, Items.CAULDRON);
+		Item.BLOCK_ITEMS.put(HONEY_CAULDRON, Items.CAULDRON);
+		Item.BLOCK_ITEMS.put(DRAGON_BREATH_CAULDRON, Items.CAULDRON);
+		Item.BLOCK_ITEMS.put(EXPERIENCE_CAULDRON, Items.CAULDRON);
+		Item.BLOCK_ITEMS.put(MUSHROOM_STEW_CAULDRON, Items.CAULDRON);
+		Item.BLOCK_ITEMS.put(RABBIT_STEW_CAULDRON, Items.CAULDRON);
+		Item.BLOCK_ITEMS.put(BEETROOT_SOUP_CAULDRON, Items.CAULDRON);
+		Item.BLOCK_ITEMS.put(SUSPICIOUS_STEW_CAULDRON, Items.CAULDRON);
 	}
 }

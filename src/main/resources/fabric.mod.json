@@ -18,10 +18,11 @@
       "com.shnupbups.cauldrons.Cauldrons"
     ]
   },
-
+  
   "depends": {
-    "minecraft": "~1.17-alpha+",
-    "fabricloader": ">=0.6.1",
-    "fabric": "*"
+    "fabricloader": ">=0.11.3",
+    "fabric": "*",
+    "minecraft": "1.17.x",
+    "java": ">=16"
   }
 }
