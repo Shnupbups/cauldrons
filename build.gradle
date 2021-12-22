@@ -31,7 +31,7 @@ dependencies {
     // Fabric API
     modImplementation "net.fabricmc.fabric-api:fabric-api:${project.fapi_version}"
 
-	// Fabric API
+	// CauldronLib
 	modImplementation "com.shnupbups:CauldronLib:${project.cauldronlib_version}+${project.version_meta}"
 	include "com.shnupbups:CauldronLib:${project.cauldronlib_version}+${project.version_meta}"
 
