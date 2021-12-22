@@ -1,20 +1,21 @@
 package com.shnupbups.cauldrons.block;
 
-import net.minecraft.block.Block;
+import java.util.Map;
+
 import net.minecraft.block.BlockState;
 import net.minecraft.block.cauldron.CauldronBehavior;
 import net.minecraft.entity.Entity;
 import net.minecraft.entity.player.PlayerEntity;
 import net.minecraft.item.Item;
-import net.minecraft.state.StateManager;
 import net.minecraft.state.property.IntProperty;
 import net.minecraft.util.math.BlockPos;
 import net.minecraft.world.World;
 
-import java.util.Map;
+import com.shnupbups.cauldronlib.block.AbstractLeveledCauldronBlock;
 
 public class ExperienceCauldronBlock extends AbstractLeveledCauldronBlock {
-	public static final IntProperty LEVEL = IntProperty.of("level", 1, 30);;
+	public static final IntProperty LEVEL = IntProperty.of("level", 1, 30);
+	;
 
 	public ExperienceCauldronBlock(Settings settings, Map<Item, CauldronBehavior> behaviorMap) {
 		super(settings, behaviorMap);
@@ -31,27 +32,11 @@ public class ExperienceCauldronBlock extends AbstractLeveledCauldronBlock {
 	}
 
 	@Override
-	protected double getFluidHeight(BlockState state) {
-		return (6.0D + ((double)state.get(LEVEL)/10) * 3.0D) / 16.0D;
-	}
-
-	@Override
-	public int getComparatorOutput(BlockState state, World world, BlockPos pos) {
-		return Math.max(1, state.get(LEVEL)/2);
-	}
-
-	@Override
-	protected void appendProperties(StateManager.Builder<Block, BlockState> builder) {
-		builder.add(LEVEL);
-	}
-
-	@Override
 	public void onEntityCollision(BlockState state, World world, BlockPos pos, Entity entity) {
-		if (this.isEntityTouchingFluid(state, pos, entity) && entity instanceof PlayerEntity) {
-			PlayerEntity player = (PlayerEntity)entity;
-			if(!player.isSpectator()) {
+		if (this.isEntityTouchingFluid(state, pos, entity) && entity instanceof PlayerEntity player) {
+			if (!player.isSpectator()) {
 				player.addExperience(1);
-				if(!player.isCreative())
+				if (!player.isCreative())
 					decrementFluidLevel(state, world, pos, 1);
 			}
 		}

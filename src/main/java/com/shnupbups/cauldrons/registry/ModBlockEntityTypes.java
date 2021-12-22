@@ -1,9 +1,9 @@
 package com.shnupbups.cauldrons.registry;
 
-import net.fabricmc.fabric.api.object.builder.v1.block.entity.FabricBlockEntityTypeBuilder;
-
 import net.minecraft.block.entity.BlockEntityType;
 import net.minecraft.util.registry.Registry;
+
+import net.fabricmc.fabric.api.object.builder.v1.block.entity.FabricBlockEntityTypeBuilder;
 
 import com.shnupbups.cauldrons.Cauldrons;
 import com.shnupbups.cauldrons.block.entity.SuspiciousStewCauldronBlockEntity;

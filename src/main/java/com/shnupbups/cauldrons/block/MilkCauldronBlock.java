@@ -1,6 +1,7 @@
 package com.shnupbups.cauldrons.block;
 
-import net.minecraft.block.AbstractCauldronBlock;
+import java.util.Map;
+
 import net.minecraft.block.BlockState;
 import net.minecraft.block.Blocks;
 import net.minecraft.block.cauldron.CauldronBehavior;
@@ -11,36 +12,19 @@ import net.minecraft.item.Item;
 import net.minecraft.util.math.BlockPos;
 import net.minecraft.world.World;
 
-import java.util.Map;
+import com.shnupbups.cauldronlib.block.FullCauldronBlock;
 
-public class MilkCauldronBlock extends AbstractCauldronBlock {
-
+public class MilkCauldronBlock extends FullCauldronBlock {
 	public MilkCauldronBlock(Settings settings, Map<Item, CauldronBehavior> behaviorMap) {
 		super(settings, behaviorMap);
 	}
 
 	@Override
-	protected double getFluidHeight(BlockState state) {
-		return 0.9375D;
-	}
-
-	@Override
-	public boolean isFull(BlockState state) {
-		return true;
-	}
-
-	@Override
 	public void onEntityCollision(BlockState state, World world, BlockPos pos, Entity entity) {
-		if (this.isEntityTouchingFluid(state, pos, entity) && entity instanceof LivingEntity) {
-			LivingEntity livingEntity = (LivingEntity)entity;
-			if(livingEntity.clearStatusEffects() && (!(livingEntity instanceof PlayerEntity) || !((PlayerEntity)livingEntity).isCreative())) {
+		if (this.isEntityTouchingFluid(state, pos, entity) && entity instanceof LivingEntity livingEntity) {
+			if (livingEntity.clearStatusEffects() && (!(livingEntity instanceof PlayerEntity) || !((PlayerEntity) livingEntity).isCreative())) {
 				world.setBlockState(pos, Blocks.CAULDRON.getDefaultState());
 			}
 		}
-	}
-
-	@Override
-	public int getComparatorOutput(BlockState state, World world, BlockPos pos) {
-		return 1;
 	}
 }

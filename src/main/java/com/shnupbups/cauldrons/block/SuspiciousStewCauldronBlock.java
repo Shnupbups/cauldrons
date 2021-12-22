@@ -1,5 +1,9 @@
 package com.shnupbups.cauldrons.block;
 
+import java.util.Map;
+
+import org.jetbrains.annotations.Nullable;
+
 import net.minecraft.block.BlockEntityProvider;
 import net.minecraft.block.BlockState;
 import net.minecraft.block.cauldron.CauldronBehavior;
@@ -13,9 +17,6 @@ import net.minecraft.world.World;
 
 import com.shnupbups.cauldrons.block.entity.SuspiciousStewCauldronBlockEntity;
 import com.shnupbups.cauldrons.registry.ModBlocks;
-import org.jetbrains.annotations.Nullable;
-
-import java.util.Map;
 
 public class SuspiciousStewCauldronBlock extends MushroomStewCauldronBlock implements BlockEntityProvider {
 	public SuspiciousStewCauldronBlock(Settings settings, Map<Item, CauldronBehavior> behaviorMap) {
@@ -36,12 +37,10 @@ public class SuspiciousStewCauldronBlock extends MushroomStewCauldronBlock imple
 
 	@Override
 	public void onEntityCollision(BlockState state, World world, BlockPos pos, Entity entity) {
-		if (this.isEntityTouchingFluid(state, pos, entity) && entity instanceof LivingEntity) {
-			LivingEntity livingEntity = (LivingEntity)entity;
-			if(!livingEntity.isSpectator()) {
-				SuspiciousStewCauldronBlockEntity blockEntity = (SuspiciousStewCauldronBlockEntity) world.getBlockEntity(pos);
+		if (this.isEntityTouchingFluid(state, pos, entity) && entity instanceof LivingEntity livingEntity) {
+			if (!livingEntity.isSpectator() && world.getBlockEntity(pos) instanceof SuspiciousStewCauldronBlockEntity blockEntity) {
 				blockEntity.getEffects().forEach(livingEntity::addStatusEffect);
-				if(!(livingEntity instanceof PlayerEntity) || !((PlayerEntity)livingEntity).isCreative()) {
+				if (!(livingEntity instanceof PlayerEntity) || !((PlayerEntity) livingEntity).isCreative()) {
 					BlockState newState = ModBlocks.MUSHROOM_STEW_CAULDRON.getDefaultState().with(MushroomStewCauldronBlock.LEVEL, state.get(MushroomStewCauldronBlock.LEVEL));
 					world.setBlockState(pos, newState);
 				}

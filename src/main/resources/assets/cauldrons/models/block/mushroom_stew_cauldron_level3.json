@@ -1,5 +1,5 @@
 {
-  "parent": "minecraft:block/template_cauldron_level1",
+  "parent": "cauldronlib:block/template_cauldron_level1point50",
   "textures": {
     "content": "cauldrons:block/mushroom_stew",
     "inside": "minecraft:block/cauldron_inner",

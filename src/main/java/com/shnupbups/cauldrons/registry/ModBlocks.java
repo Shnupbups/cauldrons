@@ -1,13 +1,14 @@
 package com.shnupbups.cauldrons.registry;
 
-import net.fabricmc.fabric.api.object.builder.v1.block.FabricBlockSettings;
-
 import net.minecraft.block.Block;
 import net.minecraft.block.Blocks;
 import net.minecraft.item.Item;
 import net.minecraft.item.Items;
 import net.minecraft.util.registry.Registry;
 
+import net.fabricmc.fabric.api.object.builder.v1.block.FabricBlockSettings;
+
+import com.shnupbups.cauldronlib.block.ThreeLeveledCauldronBlock;
 import com.shnupbups.cauldrons.Cauldrons;
 import com.shnupbups.cauldrons.block.BeetrootSoupCauldronBlock;
 import com.shnupbups.cauldrons.block.DragonBreathCauldronBlock;
@@ -16,7 +17,6 @@ import com.shnupbups.cauldrons.block.HoneyCauldronBlock;
 import com.shnupbups.cauldrons.block.MilkCauldronBlock;
 import com.shnupbups.cauldrons.block.MushroomStewCauldronBlock;
 import com.shnupbups.cauldrons.block.SuspiciousStewCauldronBlock;
-import com.shnupbups.cauldrons.block.ThreeLeveledCauldronBlock;
 
 public class ModBlocks {
 	public static Block MILK_CAULDRON = new MilkCauldronBlock(FabricBlockSettings.copyOf(Blocks.CAULDRON), ModCauldronBehavior.MILK_CAULDRON_BEHAVIOR);
@@ -29,22 +29,22 @@ public class ModBlocks {
 	public static Block SUSPICIOUS_STEW_CAULDRON = new SuspiciousStewCauldronBlock(FabricBlockSettings.copyOf(Blocks.CAULDRON), ModCauldronBehavior.SUSPICIOUS_STEW_CAULDRON_BEHAVIOR);
 
 	public static void init() {
-		Registry.register(Registry.BLOCK, Cauldrons.id("milk_cauldron"), MILK_CAULDRON);
-		Registry.register(Registry.BLOCK, Cauldrons.id("honey_cauldron"), HONEY_CAULDRON);
-		Registry.register(Registry.BLOCK, Cauldrons.id("dragon_breath_cauldron"), DRAGON_BREATH_CAULDRON);
-		Registry.register(Registry.BLOCK, Cauldrons.id("experience_cauldron"), EXPERIENCE_CAULDRON);
-		Registry.register(Registry.BLOCK, Cauldrons.id("mushroom_stew_cauldron"), MUSHROOM_STEW_CAULDRON);
-		Registry.register(Registry.BLOCK, Cauldrons.id("rabbit_stew_cauldron"), RABBIT_STEW_CAULDRON);
-		Registry.register(Registry.BLOCK, Cauldrons.id("beetroot_soup_cauldron"), BEETROOT_SOUP_CAULDRON);
-		Registry.register(Registry.BLOCK, Cauldrons.id("suspicious_stew_cauldron"), SUSPICIOUS_STEW_CAULDRON);
+		registerCauldron("milk_cauldron", MILK_CAULDRON);
+		registerCauldron("honey_cauldron", HONEY_CAULDRON);
+		registerCauldron("dragon_breath_cauldron", DRAGON_BREATH_CAULDRON);
+		registerCauldron("experience_cauldron", EXPERIENCE_CAULDRON);
+		registerCauldron("mushroom_stew_cauldron", MUSHROOM_STEW_CAULDRON);
+		registerCauldron("rabbit_stew_cauldron", RABBIT_STEW_CAULDRON);
+		registerCauldron("beetroot_soup_cauldron", BEETROOT_SOUP_CAULDRON);
+		registerCauldron("suspicious_stew_cauldron", SUSPICIOUS_STEW_CAULDRON);
+	}
 
-		Item.BLOCK_ITEMS.put(MILK_CAULDRON, Items.CAULDRON);
-		Item.BLOCK_ITEMS.put(HONEY_CAULDRON, Items.CAULDRON);
-		Item.BLOCK_ITEMS.put(DRAGON_BREATH_CAULDRON, Items.CAULDRON);
-		Item.BLOCK_ITEMS.put(EXPERIENCE_CAULDRON, Items.CAULDRON);
-		Item.BLOCK_ITEMS.put(MUSHROOM_STEW_CAULDRON, Items.CAULDRON);
-		Item.BLOCK_ITEMS.put(RABBIT_STEW_CAULDRON, Items.CAULDRON);
-		Item.BLOCK_ITEMS.put(BEETROOT_SOUP_CAULDRON, Items.CAULDRON);
-		Item.BLOCK_ITEMS.put(SUSPICIOUS_STEW_CAULDRON, Items.CAULDRON);
+	public static void register(String id, Block block) {
+		Registry.register(Registry.BLOCK, Cauldrons.id(id), block);
+	}
+
+	public static void registerCauldron(String id, Block cauldron) {
+		register(id, cauldron);
+		Item.BLOCK_ITEMS.put(cauldron, Items.CAULDRON);
 	}
 }

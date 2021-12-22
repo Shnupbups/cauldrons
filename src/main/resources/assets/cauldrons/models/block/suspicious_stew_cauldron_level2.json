@@ -1,5 +1,5 @@
 {
-  "parent": "minecraft:block/template_cauldron_level2",
+  "parent": "minecraft:block/template_cauldron_level1",
   "textures": {
     "content": "cauldrons:block/suspicious_stew",
     "inside": "minecraft:block/cauldron_inner",

@@ -1,19 +1,19 @@
 {
   "variants": {
     "level=1": {
-      "model": "cauldrons:block/mushroom_stew_cauldron_level0point5"
-    },
-    "level=2": {
       "model": "cauldrons:block/mushroom_stew_cauldron_level1"
     },
-    "level=3": {
-      "model": "cauldrons:block/mushroom_stew_cauldron_level1point5"
-    },
-    "level=4": {
+    "level=2": {
       "model": "cauldrons:block/mushroom_stew_cauldron_level2"
     },
+    "level=3": {
+      "model": "cauldrons:block/mushroom_stew_cauldron_level3"
+    },
+    "level=4": {
+      "model": "cauldrons:block/mushroom_stew_cauldron_level4"
+    },
     "level=5": {
-      "model": "cauldrons:block/mushroom_stew_cauldron_level2point5"
+      "model": "cauldrons:block/mushroom_stew_cauldron_level5"
     },
     "level=6": {
       "model": "cauldrons:block/mushroom_stew_cauldron_full"

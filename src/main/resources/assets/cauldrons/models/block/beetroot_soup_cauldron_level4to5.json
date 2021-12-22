@@ -1,5 +1,5 @@
 {
-  "parent": "cauldrons:block/template_cauldron_level2point5",
+  "parent": "cauldronlib:block/template_cauldron_level0point75",
   "textures": {
     "content": "cauldrons:block/beetroot_soup",
     "inside": "minecraft:block/cauldron_inner",

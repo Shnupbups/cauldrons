@@ -1,55 +1,55 @@
 {
   "variants": {
     "level=1": {
-      "model": "cauldrons:block/beetroot_soup_cauldron_level0point5"
+      "model": "cauldrons:block/beetroot_soup_cauldron_level1to2"
     },
     "level=2": {
-      "model": "cauldrons:block/beetroot_soup_cauldron_level0point5"
+      "model": "cauldrons:block/beetroot_soup_cauldron_level1to2"
     },
     "level=3": {
-      "model": "cauldrons:block/beetroot_soup_cauldron_level0point5"
+      "model": "cauldrons:block/beetroot_soup_cauldron_level3"
     },
     "level=4": {
-      "model": "cauldrons:block/beetroot_soup_cauldron_level1"
+      "model": "cauldrons:block/beetroot_soup_cauldron_level4to5"
     },
     "level=5": {
-      "model": "cauldrons:block/beetroot_soup_cauldron_level1"
+      "model": "cauldrons:block/beetroot_soup_cauldron_level4to5"
     },
     "level=6": {
-      "model": "cauldrons:block/beetroot_soup_cauldron_level1"
+      "model": "cauldrons:block/beetroot_soup_cauldron_level6"
     },
     "level=7": {
-      "model": "cauldrons:block/beetroot_soup_cauldron_level1point5"
+      "model": "cauldrons:block/beetroot_soup_cauldron_level7to8"
     },
     "level=8": {
-      "model": "cauldrons:block/beetroot_soup_cauldron_level1point5"
+      "model": "cauldrons:block/beetroot_soup_cauldron_level7to8"
     },
     "level=9": {
-      "model": "cauldrons:block/beetroot_soup_cauldron_level1point5"
+      "model": "cauldrons:block/beetroot_soup_cauldron_level9"
     },
     "level=10": {
-      "model": "cauldrons:block/beetroot_soup_cauldron_level2"
+      "model": "cauldrons:block/beetroot_soup_cauldron_level10to11"
     },
     "level=11": {
-      "model": "cauldrons:block/beetroot_soup_cauldron_level2"
+      "model": "cauldrons:block/beetroot_soup_cauldron_level10to11"
     },
     "level=12": {
-      "model": "cauldrons:block/beetroot_soup_cauldron_level2"
+      "model": "cauldrons:block/beetroot_soup_cauldron_level12"
     },
     "level=13": {
-      "model": "cauldrons:block/beetroot_soup_cauldron_level2point5"
+      "model": "cauldrons:block/beetroot_soup_cauldron_level13to14"
     },
     "level=14": {
-      "model": "cauldrons:block/beetroot_soup_cauldron_level2point5"
+      "model": "cauldrons:block/beetroot_soup_cauldron_level13to14"
     },
     "level=15": {
-      "model": "cauldrons:block/beetroot_soup_cauldron_level2point5"
+      "model": "cauldrons:block/beetroot_soup_cauldron_level15"
     },
     "level=16": {
-      "model": "cauldrons:block/beetroot_soup_cauldron_full"
+      "model": "cauldrons:block/beetroot_soup_cauldron_level16to17"
     },
     "level=17": {
-      "model": "cauldrons:block/beetroot_soup_cauldron_full"
+      "model": "cauldrons:block/beetroot_soup_cauldron_level16to17"
     },
     "level=18": {
       "model": "cauldrons:block/beetroot_soup_cauldron_full"

@@ -1,5 +1,7 @@
 package com.shnupbups.cauldrons.block;
 
+import java.util.Map;
+
 import net.minecraft.block.BlockState;
 import net.minecraft.block.cauldron.CauldronBehavior;
 import net.minecraft.entity.Entity;
@@ -8,7 +10,7 @@ import net.minecraft.item.Item;
 import net.minecraft.util.math.BlockPos;
 import net.minecraft.world.World;
 
-import java.util.Map;
+import com.shnupbups.cauldronlib.block.ThreeLeveledCauldronBlock;
 
 public class DragonBreathCauldronBlock extends ThreeLeveledCauldronBlock {
 	public DragonBreathCauldronBlock(Settings settings, Map<Item, CauldronBehavior> behaviorMap) {

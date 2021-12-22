@@ -1,5 +1,8 @@
 package com.shnupbups.cauldrons.block.entity;
 
+import java.util.ArrayList;
+import java.util.List;
+
 import net.minecraft.block.BlockState;
 import net.minecraft.block.FlowerBlock;
 import net.minecraft.block.entity.BlockEntity;
@@ -11,9 +14,6 @@ import net.minecraft.nbt.NbtList;
 import net.minecraft.util.math.BlockPos;
 
 import com.shnupbups.cauldrons.registry.ModBlockEntityTypes;
-
-import java.util.ArrayList;
-import java.util.List;
 
 public class SuspiciousStewCauldronBlockEntity extends BlockEntity {
 	protected List<StatusEffectInstance> effects = new ArrayList<>();
@@ -29,11 +29,11 @@ public class SuspiciousStewCauldronBlockEntity extends BlockEntity {
 	}
 
 	public void addEffectsToStew(ItemStack stew) {
-		NbtCompound nbtCompound = stew.getOrCreateTag();
+		NbtCompound nbtCompound = stew.getOrCreateNbt();
 		NbtList nbtList = nbtCompound.getList("Effects", 9);
-		for (StatusEffectInstance effect:getEffects()) {
+		for (StatusEffectInstance effect : getEffects()) {
 			NbtCompound nbtCompound2 = new NbtCompound();
-			nbtCompound2.putByte("EffectId", (byte)StatusEffect.getRawId(effect.getEffectType()));
+			nbtCompound2.putByte("EffectId", (byte) StatusEffect.getRawId(effect.getEffectType()));
 			nbtCompound2.putInt("EffectDuration", effect.getDuration());
 			nbtList.add(nbtCompound2);
 		}
@@ -49,7 +49,7 @@ public class SuspiciousStewCauldronBlockEntity extends BlockEntity {
 	}
 
 	public void addEffectsFromStew(ItemStack stew) {
-		NbtCompound nbtCompound = stew.getTag();
+		NbtCompound nbtCompound = stew.getNbt();
 		if (nbtCompound != null && nbtCompound.contains("Effects", 9)) {
 			NbtList nbtList = nbtCompound.getList("Effects", 10);
 
@@ -69,9 +69,9 @@ public class SuspiciousStewCauldronBlockEntity extends BlockEntity {
 	}
 
 	public boolean addEffect(StatusEffectInstance effect) {
-		for(StatusEffectInstance e:getEffects()) {
+		for (StatusEffectInstance e : getEffects()) {
 			if (e.getEffectType().equals(effect.getEffectType())) {
-				if(e.getDuration() < effect.getDuration()) {
+				if (e.getDuration() < effect.getDuration()) {
 					removeEffect(e);
 				} else {
 					return false;
@@ -83,12 +83,14 @@ public class SuspiciousStewCauldronBlockEntity extends BlockEntity {
 	}
 
 	public boolean removeEffect(StatusEffect effect) {
-		for(StatusEffectInstance e:getEffects()) {
+		boolean removed = false;
+		for (StatusEffectInstance e : getEffects()) {
 			if (e.getEffectType().equals(effect)) {
 				removeEffect(e);
-				return true;
+				removed = true;
 			}
-		} return false;
+		}
+		return removed;
 	}
 
 	public boolean removeEffect(StatusEffectInstance effect) {
@@ -117,16 +119,15 @@ public class SuspiciousStewCauldronBlockEntity extends BlockEntity {
 	}
 
 	@Override
-	public NbtCompound writeNbt(NbtCompound nbtCompound) {
+	public void writeNbt(NbtCompound nbtCompound) {
 		super.writeNbt(nbtCompound);
 		NbtList nbtList = nbtCompound.getList("Effects", 9);
-		for (StatusEffectInstance effect:getEffects()) {
+		for (StatusEffectInstance effect : getEffects()) {
 			NbtCompound nbtCompound2 = new NbtCompound();
-			nbtCompound2.putByte("EffectId", (byte)StatusEffect.getRawId(effect.getEffectType()));
+			nbtCompound2.putByte("EffectId", (byte) StatusEffect.getRawId(effect.getEffectType()));
 			nbtCompound2.putInt("EffectDuration", effect.getDuration());
 			nbtList.add(nbtCompound2);
 		}
 		nbtCompound.put("Effects", nbtList);
-		return nbtCompound;
 	}
 }
